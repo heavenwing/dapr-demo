@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: daprdemo-helloapi
+  labels:
+    app.kubernetes.io/name: helloapi
+    app.kubernetes.io/part-of: daprdemo
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 80
+  selector:
+    app: daprdemo-helloapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daprdemo-helloapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: daprdemo-helloapi
+  template:
+    metadata:
+      labels:
+        app: daprdemo-helloapi
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "helloapi"
+        dapr.io/app-port: "80"
+    spec:
+      containers:
+      - name: daprdemo-helloapi
+        image: heavenwing/daprdemo-helloapi:latest
+        ports:
+        - containerPort: 80

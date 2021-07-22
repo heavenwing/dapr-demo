@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: daprdemo-portal
+  labels:
+    app.kubernetes.io/name: portal
+    app.kubernetes.io/part-of: daprdemo
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 80
+  selector:
+    app: daprdemo-portal
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daprdemo-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: daprdemo-portal
+  template:
+    metadata:
+      labels:
+        app: daprdemo-portal
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "portal"
+        dapr.io/app-port: "80"
+    spec:
+      containers:
+      - name: daprdemo-portal
+        image: heavenwing/daprdemo-portal:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORTAL_MESSAGE
+          value: Run in k8s using Azure Arc!
+        # - name: ASPNETCORE_ENVIRONMENT
+        #   value: Development
