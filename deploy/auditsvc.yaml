@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: daprdemo-auditsvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: daprdemo-auditsvc
+  template:
+    metadata:
+      labels:
+        app: daprdemo-auditsvc
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "auditsvc"
+    spec:
+      containers:
+      - name: daprdemo-auditsvc
+        image: heavenwing/daprdemo-auditsvc:latest
