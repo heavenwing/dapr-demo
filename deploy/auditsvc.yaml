@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: daprdemo-auditsvc
-        image: heavenwing/daprdemo-auditsvc:latest
+        image: heavenwing/daprdemo-auditsvc:buildx-latest

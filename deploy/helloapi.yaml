@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
       - name: daprdemo-helloapi
-        image: heavenwing/daprdemo-helloapi:latest
+        image: heavenwing/daprdemo-helloapi:buildx-latest
         ports:
         - containerPort: 80

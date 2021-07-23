@@ -33,11 +33,11 @@ spec:
     spec:
       containers:
       - name: daprdemo-portal
-        image: heavenwing/daprdemo-portal:latest
+        image: heavenwing/daprdemo-portal:buildx-latest
         ports:
         - containerPort: 80
         env:
         - name: PORTAL_MESSAGE
-          value: Run in k8s using Azure Arc!
+          value: Hello World!
         # - name: ASPNETCORE_ENVIRONMENT
         #   value: Development
