@@ -2,11 +2,11 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: messages
-  namespace: default
 spec:
-  type: pubsub.kafka
+  type: pubsub.redis
   version: v1
   metadata:
-      # Kafka broker connection setting
-    - name: brokers
-      value: "dapr-kafka.default.svc.cluster.local:9092"
+  - name: redisHost
+    value: localhost:6379
+  - name: redisPassword
+    value: ""
