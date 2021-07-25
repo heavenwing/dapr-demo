@@ -15,7 +15,7 @@ namespace Portal.Pages
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            Message=Environment.GetEnvironmentVariable("PORTAL_MESSAGE")??"Run in local";
+            Message = Environment.GetEnvironmentVariable("PORTAL_MESSAGE") ?? "Run in local";
         }
 
         public string Hello { get; set; }

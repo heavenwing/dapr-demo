@@ -6,12 +6,19 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Portal
 {
     public class Startup
     {
+        private readonly JsonSerializerOptions options = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,7 +31,10 @@ namespace Portal
         {
             services.AddRazorPages();
 
-            services.AddDaprClient();
+            services.AddDaprClient(client =>
+            {
+                client.UseJsonSerializationOptions(options);
+            });
 
             //services.AddScoped<IHelloService, LocalHelloService>();
 

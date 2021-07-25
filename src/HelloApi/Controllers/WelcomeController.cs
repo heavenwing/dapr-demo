@@ -1,6 +1,7 @@
 ﻿using Dapr.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,30 +13,20 @@ namespace HelloApi.Controllers
     [ApiController]
     public class WelcomeController : ControllerBase
     {
-        private readonly DaprClient _daprClient;
-
-        public WelcomeController(DaprClient daprClient)
-        {
-            _daprClient = daprClient;
-        }
-
         [HttpGet]
-        public async Task<IActionResult> GetAsync(string name)
+        public async Task<IActionResult> GetAsync(string name, [FromServices] DaprClient dapr, [FromServices] ILogger<WelcomeController> logger)
         {
-            await _daprClient.PublishEventAsync("messages", "audit", new AuditInfo
+            logger.LogInformation("Got welcome to {Name}", name);
+
+            await dapr.PublishEventAsync("messages", "audit", new AuditInfo
             {
                 Who = name,
                 When = DateTimeOffset.UtcNow,
                 What = nameof(WelcomeController)
             });
-            return Ok(new { Msg = $"Welcome {name}! Hello from Dapr." });
-        }
+            logger.LogInformation("Published audit info {Who}", name);
 
-        public class AuditInfo
-        {
-            public string Who { get; set; }
-            public DateTimeOffset When { get; set; }
-            public string What { get; set; }
+            return Ok(new { Msg = $"Welcome {name}! Hello from Dapr." });
         }
     }
 }
