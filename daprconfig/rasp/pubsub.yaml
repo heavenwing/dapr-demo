@@ -10,5 +10,3 @@ spec:
       # Kafka broker connection setting
     - name: brokers
       value: "dapr-kafka.default.svc.cluster.local:9092"
-    - name: authRequired
-      value: "false"

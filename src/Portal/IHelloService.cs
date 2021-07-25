@@ -55,7 +55,7 @@ namespace Portal
 
         public async Task<string> HelloAsync(string name)
         {
-            var model = await _daprClient.InvokeMethodAsync<HelloModel>(HttpMethod.Get, "helloapi", $"api/welcome?name={name}");
+            var model = await _daprClient.InvokeMethodAsync<HelloModel>(HttpMethod.Get, "daprdemo-helloapi", $"api/welcome?name={name}");
             return model.Msg;
         }
     }
