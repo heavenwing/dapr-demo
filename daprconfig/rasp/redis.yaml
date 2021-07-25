@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dapr-redis
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: dapr-redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dapr-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dapr-redis
+  template:
+    metadata:
+      labels:
+        app: dapr-redis
+    spec:
+      containers:
+      - name: dapr-redis
+        image: redis:alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
