@@ -28,16 +28,17 @@ spec:
         app: daprdemo-portal
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "portal"
+        dapr.io/app-id: "daprdemo-portal"
         dapr.io/app-port: "80"
     spec:
       containers:
       - name: daprdemo-portal
         image: heavenwing/daprdemo-portal:buildx-latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         env:
         - name: PORTAL_MESSAGE
-          value: Hello World!
+          value: Run in Kubernetes!
         # - name: ASPNETCORE_ENVIRONMENT
         #   value: Development

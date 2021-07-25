@@ -28,11 +28,12 @@ spec:
         app: daprdemo-helloapi
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "helloapi"
+        dapr.io/app-id: "daprdemo-helloapi"
         dapr.io/app-port: "80"
     spec:
       containers:
       - name: daprdemo-helloapi
         image: heavenwing/daprdemo-helloapi:buildx-latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
